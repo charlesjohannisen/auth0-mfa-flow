@@ -27,8 +27,8 @@ class Auth0MultiFactorAuthentication {
 		this.oobCode = null;
 	}
 
-	post = (url, data, headers) =>
-		new Promise((resolve) => {
+	post(url, data, headers) {
+		return new Promise((resolve) => {
 			fetch(url, {
 				method: 'POST',
 				headers: {
@@ -48,17 +48,21 @@ class Auth0MultiFactorAuthentication {
 				})
 				.catch((error) => error)
 				// eslint-disable-next-line camelcase
-				.then(({error, error_description}) => {
-					resolve({
-						error: {
-							name: error,
-							description: error_description
-						}
-					});
+				.then((data) => {
+					const {error, error_description} = data || {}
+					if (error) {
+						resolve({
+							error: {
+								name: error,
+								description: error_description
+							}
+						});
+					}
 				});
 		});
+	}
 
-	token = async () => {
+	async token() {
 		const url = `${this.url}/oauth/token`;
 		const {challengeType, grantType} = this.options;
 		let input = {
@@ -90,9 +94,9 @@ class Auth0MultiFactorAuthentication {
 			errorDescription = description;
 		}
 		return {data, error: errorDescription};
-	};
+	}
 
-	challenge = async () => {
+	async challenge() {
 		const url = `${this.url}/mfa/challenge`;
 		const {challengeType} = this.options;
 		const input = {
@@ -130,9 +134,9 @@ class Auth0MultiFactorAuthentication {
 		}
 
 		return {data, error: null};
-	};
+	}
 
-	enroll = async () => {
+	async enroll() {
 		const url = `${this.url}/mfa/associate`;
 		const {challengeType, oobChannels, authenticatorTypes} = this.options;
 		let input = {
@@ -176,9 +180,9 @@ class Auth0MultiFactorAuthentication {
 		}
 
 		return {data, error: null};
-	};
+	}
 
-	isEnrolled = (data) => {
+	isEnrolled(data) {
 		const {error, description} = data;
 		// error: "access_denied", error_description: "User is already enrolled."
 		if (
@@ -189,18 +193,18 @@ class Auth0MultiFactorAuthentication {
 			return true;
 		}
 		return false;
-	};
+	}
 
-	start = (mfaToken, phoneNumber) => {
+	start(mfaToken, phoneNumber) {
 		this.mfaToken = mfaToken;
 		this.phoneNumber = phoneNumber;
 		return this.challenge();
-	};
+	}
 
-	complete = (otp) => {
+	complete(otp) {
 		this.otp = otp;
 		return this.token();
-	};
+	}
 }
 
 export default Auth0MultiFactorAuthentication;
