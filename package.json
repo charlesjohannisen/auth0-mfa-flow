@@ -1,0 +1,24 @@
+{
+	"name": "auth0-mfa-flow",
+	"version": "1.0.0",
+	"description": "Auth0 Multi-factor Authentication",
+	"main": "index.js",
+	"homepage": "https://github.com/charlesjohannisen/auth0-mfa-flow",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/charlesjohannisen/auth0-mfa-flow.git"
+	},
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [
+		"auth0",
+		"multi-factor authentication",
+		"mfa"
+	],
+	"author": "Charles Johannisen",
+	"license": "ISC",
+	"dependencies": {
+	},
+	"devDependencies": {}
+}
