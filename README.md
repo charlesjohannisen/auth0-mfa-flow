@@ -1,14 +1,14 @@
 # auth0-mfa-flow
 
-Used in conjunction with https://github.com/auth0/auth0.js\
-If you have multi-factor authentication enabled the auth0-js will lead to a dead-end.\
+Used in conjunction with https://github.com/auth0/auth0.js \
+If you have multi-factor authentication enabled auth0-js will lead to a dead-end.\
 Use this library to continue the auhtentication process.\
-This library only favours mfa via sms/voice delivery at this point.
+This library only favours mfa via sms, voice or other otp delivery at this point.
 
 # Usage
 ```js
 import auth0 from 'auth0-js';
-import Auth0MFAFlow, {reformatAuthResult} from 'auth0-mfa-flow';
+import Auth0MFAFlow from 'auth0-mfa-flow';
 
 const clientId = 'YOUR_AUTH0_APPLICATION_CLIENT_ID';
 const domain = 'YOUR_AUTH0_APLLICATION_DOMAIN';
