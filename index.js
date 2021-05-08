@@ -6,7 +6,7 @@ export const reformatAuthResult = (authResult) => ({
 	scope: authResult.scope
 });
 
-const mfaDefaultOptions = {
+export const mfaDefaultOptions = {
 	challengeType: 'oob', // or 'otp'
 	oobChannels: ['sms'],
 	authenticatorTypes: ['oob'], // or ['otp']

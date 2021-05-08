@@ -8,7 +8,7 @@ This library only favours mfa via sms, voice or other otp delivery at this point
 # Usage
 ```js
 import auth0 from 'auth0-js';
-import Auth0MFAFlow from 'auth0-mfa-flow';
+import Auth0MFAFlow, {mfaDefaultOptions} from 'auth0-mfa-flow';
 
 const clientId = 'YOUR_AUTH0_APPLICATION_CLIENT_ID';
 const domain = 'YOUR_AUTH0_APLLICATION_DOMAIN';
@@ -20,11 +20,22 @@ const auth = new auth0.Authentication({
   responseType: 'code'
 });
 
-const mfaAuth = new Auth0MFAFLow(clientId, domain);
+// mfaDefaultOptions
+// Auth0MFAFLow default config is for oob type with just sms channel
+// see https://auth0.com/docs/api/authentication#multi-factor-authentication 
+// for more details and otp type
+const options = {
+	challengeType: 'oob', // or 'otp'
+	oobChannels: ['sms'],
+	authenticatorTypes: ['oob'], // or ['otp']
+	grantType: 'http://auth0.com/oauth/grant-type/mfa-oob'
+};
+
+const mfaAuth = new Auth0MFAFLow(clientId, domain); // add options as a 3rd parameter
 
 const startMultiFactorAuth = (mfaToken) => {
 	// SHOW MOBILE NUMBER INPUT FIELD
-	const mobileNumber = 'GET_THE_USER_MOBILE_NUMBER'; // OPTIONAL for oob ( sms or voice )
+	const mobileNumber = 'GET_THE_USER_MOBILE_NUMBER'; // OPTIONAL for oob ( Required if sms or voice )
 	// get the mobile number from the user if required
 	const {error} = mfaAuth.start(mfaToken, mobileNumber);
 	if (!error) {
