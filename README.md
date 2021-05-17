@@ -11,7 +11,7 @@ import auth0 from 'auth0-js';
 import Auth0MFAFlow, {mfaDefaultOptions} from 'auth0-mfa-flow';
 
 const clientId = 'YOUR_AUTH0_APPLICATION_CLIENT_ID';
-const domain = 'YOUR_AUTH0_APLLICATION_DOMAIN';
+const domain = 'YOUR_AUTH0_APPLICATION_DOMAIN';
 
 const auth = new auth0.Authentication({
   doamin,
@@ -40,6 +40,7 @@ const startMultiFactorAuth = (mfaToken) => {
 	const {error} = mfaAuth.start(mfaToken, mobileNumber);
 	if (!error) {
 		// SHOW OTP INPUT FIELD
+		// to resend the OTP call mfaAuth.challenge()
 		// once user enters OTP and submits form, call onOtpSubmit
 	} else {
 		// SHOW ERROR MESSAGE
